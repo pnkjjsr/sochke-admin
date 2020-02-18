@@ -30,15 +30,7 @@ class Ministers extends Component {
   renderMinisterRow = () => {
     const { ministers } = this.state;
     const getBadge = status => {
-      return status === "Active"
-        ? "success"
-        : status === "Inactive"
-        ? "secondary"
-        : status === "Pending"
-        ? "warning"
-        : status === "Banned"
-        ? "danger"
-        : "primary";
+      return status === "true" ? "success" : "danger";
     };
 
     return ministers.map((minister, index) => {
@@ -55,6 +47,13 @@ class Ministers extends Component {
           <td>{minister.type}</td>
           <td>{minister.year}</td>
           <td>{minister.partyShort}</td>
+          <td>
+            <Link to={ministerLink}>
+              <Badge color={getBadge(minister.winner.toString())}>
+                {minister.winner.toString()}
+              </Badge>
+            </Link>
+          </td>
         </tr>
       );
     });
@@ -82,6 +81,7 @@ class Ministers extends Component {
                       <th scope="col">Type</th>
                       <th scope="col">Year</th>
                       <th scope="col">Party</th>
+                      <th scope="col">Status</th>
                     </tr>
                   </thead>
                   <tbody>
