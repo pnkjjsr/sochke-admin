@@ -13,10 +13,10 @@
     "url": "git@github.com:coreui/coreui-free-react-admin-template.git"
   },
   "scripts": {
-    "react": "react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "dev": "NODE_ENV=development node server.js",
-    "start": "NODE_ENV=production node server.js",
+    "serve": "NODE_ENV=production node server.js",
     "deploy": "gcloud app deploy",
     "test": "react-scripts test",
     "test:cov": "npm test -- --coverage --watchAll=false",

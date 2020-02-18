@@ -12,8 +12,9 @@ export default class Service {
     this.requestTimeout = 70000;
     this.apiVersion = "v1";
     this.apiProtocol = "https";
-    this.requestBaseurl = "asia-east2-sochke-test.cloudfunctions.net";
-    this.requestBaseurlLocal = "http://localhost:5000/sochke-test/asia-east2";
+    this.requestBaseurlLocal = "asia-east2-sochke-test.cloudfunctions.net";
+    this.requestBaseurlLocalTest =
+      "http://localhost:5000/sochke-test/asia-east2";
 
     if (!isPlainObject(axiosConfig)) {
       throw new TypeError(
@@ -46,7 +47,7 @@ export default class Service {
   }
 
   getBaseURL() {
-    const api = `/api/${this.apiVersion}`;
+    const api = `api/${this.apiVersion}`;
 
     // construct base URL when is on server side
     if (NODE) {
@@ -54,7 +55,8 @@ export default class Service {
     }
     // else, use it if request base URL is explicitly defined (eg: domain name)
     else if (this.requestBaseurlLocal.trim()) {
-      return `${this.requestBaseurlLocal}${api}`;
+      // return `${this.requestBaseurlLocal}${api}`;
+      return `http://localhost:5000/sochke-test/asia-east2/${api}`;
     }
     // or return as it is
     return api;
