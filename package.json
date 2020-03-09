@@ -15,7 +15,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "dev": "NODE_ENV=development node server.js",
+    "dev": "webpack-dev-server --open --mode development",
     "serve": "NODE_ENV=production node server.js",
     "deploy": "gcloud app deploy",
     "test": "react-scripts test",
