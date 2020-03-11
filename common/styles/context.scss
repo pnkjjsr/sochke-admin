@@ -1,0 +1,28 @@
+@import "common/styles/global.scss";
+
+.context {
+  margin-top: 30px;
+
+  &__header {
+    margin-bottom: 30px;
+    h1 {
+      font-size: rem(24);
+    }
+  }
+  &__section {
+    margin-bottom: 50px;
+    font-size: rem(14);
+
+    h2 {
+      margin-bottom: 10px;
+      font-size: rem(18);
+    }
+    p {
+    }
+
+    ul {
+      li {
+      }
+    }
+  }
+}

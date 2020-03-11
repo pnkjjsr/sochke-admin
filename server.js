@@ -1,13 +1,99 @@
 const express = require("express");
+var compression = require("compression");
 const bodyParser = require("body-parser");
-const path = require("path");
-const app = express();
+const { parse } = require("url");
+const session = require("express-session");
+const FileStore = require("session-file-store")(session);
+const next = require("next");
+const admin = require("firebase-admin");
+const { join } = require("path");
 
-app.use(express.static(path.join(__dirname, "build")));
+const port = parseInt(process.env.PORT, 10) || 3000;
+const dev = process.env.NODE_ENV !== "production";
 
-app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
+const app = next({
+  dev
 });
+const handle = app.getRequestHandler();
 
-app.listen(process.env.PORT || 8080);
-console.log(`> Ready on http://localhost:8080`);
+// const serviceAccount = require("./serviceAccountKey.json");
+// const firebase = admin.initializeApp({
+//     credential: admin.credential.cert(serviceAccount),
+//     databaseURL: "https://neta-62fcb.firebaseio.com" // TODO database URL goes here
+//   },
+//   'server'
+// )
+
+app
+  .prepare()
+  .then(() => {
+    const server = express();
+    server.use(compression());
+    server.use(bodyParser.json());
+
+    server.use(
+      session({
+        secret: "geheimnis",
+        saveUninitialized: true,
+        store: new FileStore({
+          path: "/tmp/sessions",
+          secret: "geheimnis"
+        }),
+        resave: false,
+        rolling: true,
+        httpOnly: true,
+        cookie: {
+          maxAge: 604800000
+        } // week
+      })
+    );
+
+    server.use((req, res, next) => {
+      next();
+    });
+
+    server.get("/minister", (req, res) => {
+      return app.render(req, res, "/");
+    });
+
+    server.get("/minister/:userName", (req, res) => {
+      return app.render(req, res, "/minister", {
+        userName: req.params.userName
+      });
+    });
+
+    server.get("/profile", (req, res) => {
+      return app.render(req, res, "/");
+    });
+
+    server.get("/profile/:userName", (req, res) => {
+      return app.render(req, res, "/profile", {
+        userName: req.params.userName
+      });
+    });
+
+    server.get("*", (req, res) => {
+      const parsedUrl = parse(req.url, true);
+      const { pathname, query } = parsedUrl;
+
+      // Redirecting url before mount
+      // if (pathname === '/') { app.render(req, res, '/account', query); }
+
+      // handle GET request to /service-worker.js
+      if (pathname === "/service-worker.js") {
+        const filePath = join(__dirname, ".next", pathname);
+        app.serveStatic(req, res, filePath);
+      } else {
+        handle(req, res, parsedUrl);
+      }
+    });
+
+    server.listen(port, err => {
+      if (err) throw err;
+      console.log(`> Ready on http://localhost:${port}`);
+    });
+  })
+  .catch(ex => {
+    console.error(ex.stack);
+    process.exit(1);
+  });

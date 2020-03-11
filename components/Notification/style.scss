@@ -1,0 +1,88 @@
+@import "common/styles/global";
+
+.notification {
+  display: none;
+  position: fixed;
+  z-index: $notification;
+  bottom: 50px;
+  right: 0;
+  width: 100%;
+  opacity: 0;
+
+  &.show {
+    display: block;
+    opacity: 1;
+    animation: 5s hideShow;
+
+    @-webkit-keyframes hideShow {
+      0% {
+      }
+      80% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+    @-moz-keyframes hideShow {
+      0% {
+      }
+      80% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+    @keyframes hideShow {
+      0% {
+      }
+      80% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+  }
+
+  .alert {
+    margin: 0;
+    @include box-shadow;
+
+    &.alert-danger {
+      color: $color-white;
+      background-color: $color-error;
+    }
+
+    &.alert-warn {
+      background-color: #ffa000;
+    }
+
+    &.alert-info {
+      background-color: #2196f3;
+      color: $color-white;
+    }
+
+    &.alert-success {
+      background-color: #43a047;
+      color: $color-white;
+    }
+
+    .close {
+      &:hover {
+        color: $color-white;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .notification {
+    top: 58px;
+    bottom: auto;
+    right: 20%;
+    width: calc(100% - 40%);
+  }
+}

@@ -1,0 +1,24 @@
+@import "~bootstrap/scss/bootstrap.scss";
+@import "common/styles/global.scss";
+
+body {
+  padding-top: 45px;
+  padding-bottom: 50px;
+  background-color: $bg-body;
+  color: $base-color;
+  font-family: $font-family;
+  font-size: 1rem;
+}
+
+.main {
+  position: relative;
+  z-index: $main;
+  padding-bottom: 10px;
+  background-color: $bg-color;
+}
+
+@include media-breakpoint-up(md) {
+  body {
+    padding-bottom: 88px;
+  }
+}
