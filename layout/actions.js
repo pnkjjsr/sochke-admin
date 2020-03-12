@@ -5,7 +5,7 @@ import {
   SHOW_SEARCH,
   GET_SEARCH_DATA
 } from "./constant";
-import { service } from "apiConnect";
+import { service } from "utils/apiConnect";
 
 const update = () => {
   return {

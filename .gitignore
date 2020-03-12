@@ -30,6 +30,5 @@ out
 .firebaserc
 firebase.json
 serviceAccountKey.json
-firebaseConfig.js
 
 functions/firebase-debug.log

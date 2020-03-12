@@ -170,25 +170,9 @@ class HeaderUser extends Component {
     return (
       <Fragment>
         <div className="header bg" role="main">
-          <div className="container">
+          <div className="container-fluid">
             <div className="row">
               <div className="col-5 col-sm-3 col-lg-2 pl-0 pr-0 d-flex flex-row">
-                <div className="menu d-inline-block d-lg-none d-flex align-items-center">
-                  <i
-                    className="material-icons"
-                    onClick={e => this.handleOpen("account")}
-                  >
-                    menu
-                  </i>
-                  <Drawer
-                    side="left"
-                    open={accountDrawer}
-                    action={e => this.handleClose("account")}
-                  >
-                    <AccountNav />
-                  </Drawer>
-                </div>
-
                 <div className="logo">
                   <Link href="/">
                     <a>{process.env.domain}</a>
@@ -197,35 +181,7 @@ class HeaderUser extends Component {
                 </div>
               </div>
 
-              <div className="col-6 col-sm-8 col-lg-7 d-flex align-items-center">
-                <form className="w-100" onSubmit={this.handleSubmit}>
-                  <div
-                    className={`${mainClass} d-flex justify-content-end`}
-                    onClick={this.handleClick}
-                  >
-                    <div className={`${mainClass}__top ${classSearch}`}>
-                      <i className="material-icons">search</i>
-                      <input
-                        className={`${mainClass}__top__control`}
-                        name="search"
-                        type="text"
-                        value={search}
-                        placeholder="Search"
-                        autoComplete="off"
-                        onChange={this.handleChange}
-                      />
-                      <button className="btn btn-default btn-sm" type="submit">
-                        Enter
-                      </button>
-                    </div>
-
-                    <div className={`${mainClass}__result ${classResult}`}>
-                      {this.renderLoopUsers()}
-                      {this.renderLoopMinisters()}
-                    </div>
-                  </div>
-                </form>
-              </div>
+              <div className="col-6 col-sm-8 col-lg-7 d-flex align-items-center"></div>
 
               <div className="col-1 col-sm-1 col-lg-3 pr-0 pl-0 text-right d-flex justify-content-end align-items-center">
                 <div className="nav-user">

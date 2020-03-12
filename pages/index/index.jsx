@@ -49,7 +49,9 @@ class Home extends Component {
   render() {
     return (
       <Fragment>
-        <div className="home">pj</div>
+        <div className="home">
+          <div className="container-fluid">Dashboard</div>
+        </div>
 
         <style jsx>{``}</style>
       </Fragment>

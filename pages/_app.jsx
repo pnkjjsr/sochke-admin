@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import withRedux from "next-redux-wrapper";
 import { initStore } from "../redux/store";
 
-import { service } from "apiConnect";
+import { service } from "utils/apiConnect";
 import authSession from "utils/authSession";
 
 import Layout from "layout";

@@ -2,7 +2,7 @@ import axios from "axios";
 import isPlainObject from "is-plain-object";
 import "firebase/auth";
 import firebase from "firebase/app";
-import clientCredentials from "../firebaseConfig";
+import clientCredentials from "../../firebaseConfig";
 
 const NODE = process.env.NODE_ENV === "production";
 let req = null;

@@ -1,8 +1,6 @@
 import React, { Fragment, Component } from "react";
 import Link from "next/link";
 
-import Buttons from "./Buttons";
-
 import "./style.scss";
 
 class HeaderOpen extends Component {
@@ -20,9 +18,7 @@ class HeaderOpen extends Component {
                   <span>Alpha</span>
                 </div>
               </div>
-              <div className="col-7 col-sm-6 pr-0 text-right">
-                <Buttons />
-              </div>
+              <div className="col-7 col-sm-6 pr-0 text-right"></div>
             </div>
           </div>
         </div>

@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from "react";
-import Link from "next/link";
+import base64 from "base-64";
+import utf8 from "utf8";
 
+import Link from "next/link";
 import Router from "next/router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -13,7 +15,7 @@ import authSession from "utils/authSession";
 import authentication from "utils/authentication";
 import Button from "components/Form/Button";
 
-import { service } from "apiConnect";
+import { service } from "utils/apiConnect";
 
 import validation from "./validation";
 import "./style.scss";
@@ -62,56 +64,46 @@ class Login extends Component {
     }
 
     const session = new authSession();
-    const auth = new authentication();
-    auth
-      .signInWithEmail(email, password)
+    let bytesPassword = utf8.encode(password);
+    let encodedPassword = base64.encode(bytesPassword);
+    let data = {
+      email: email,
+      password: encodedPassword
+    };
+    service
+      .post("/adminLogin", data)
       .then(res => {
-        if (res.code) {
-          actionNotification.showNotification({
-            code: res.code,
-            message: res.message,
+        if (res.data.code == "user/not-register") {
+          let obj = {
+            message: res.data.message,
             type: "danger"
-          });
-
-          if (res.code == "auth/user-not-found") {
-            this.setState({
-              emailErr: "error",
-              emailMsg: res.message
-            });
-          } else if (res.code == "auth/wrong-password") {
-            this.setState({
-              passwordErr: "error",
-              passwordMsg: res.message
-            });
-          }
-        } else {
-          let token = res.user.uid;
-          let data = {
-            uid: token
           };
-
-          service
-            .post("/login", data)
-            .then(result => {
-              session.setProfile(result.data);
-              user.authenticate(result.data);
-              session.setToken(token);
-              Router.push("/constituency");
-            })
-            .catch(error => {
-              let data = error.response.data;
-              let msg = data[Object.keys(data)[0]];
-              let obj = {
-                message: msg,
-                type: "danger"
-              };
-              actionNotification.showNotification(obj);
-            });
+          return actionNotification.showNotification(obj);
         }
+
+        if (res.data.code == "user/wrong-password") {
+          let obj = {
+            message: res.data.message,
+            type: "danger"
+          };
+          return actionNotification.showNotification(obj);
+        }
+        if (res.data.code == "user/not-admin") {
+          let obj = {
+            message: res.data.message,
+            type: "danger"
+          };
+          return actionNotification.showNotification(obj);
+        }
+
+        session.setProfile(res.data);
+        user.authenticate(res.data);
+        session.setToken(res.data.id);
+        Router.push("/");
       })
       .catch(error => {
         let obj = {
-          message: error,
+          message: error.message,
           type: "danger"
         };
         actionNotification.showNotification(obj);
@@ -157,7 +149,7 @@ class Login extends Component {
                     <div className="header">
                       <h1 className="heading">Login</h1>
                       <div className="sub">
-                        Get access of your account and nation !
+                        Get access of your admin account!
                       </div>
                     </div>
 
@@ -179,7 +171,7 @@ class Login extends Component {
                         <label htmlFor="password">Password</label>
                         <span className="link-forgot float-right">
                           <Link href="/forgot-password">
-                            <a>Forgot Password?</a>
+                            <a>Request Password?</a>
                           </Link>
                         </span>
                       </div>
@@ -204,15 +196,6 @@ class Login extends Component {
                         type="submit"
                       />
                     </div>
-                  </div>
-
-                  <div className="form-link">
-                    New to {`${process.env.domain} `}
-                    <Link href="/">
-                      <button type="button" className="btn btn-sm btn-link">
-                        Join Now
-                      </button>
-                    </Link>
                   </div>
                 </form>
               </div>

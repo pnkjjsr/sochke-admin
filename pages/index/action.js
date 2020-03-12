@@ -1,6 +1,6 @@
 import { PREFETCH_HOME_DATA, UPDATE_RESPOND } from "./constant";
 
-import { service } from "apiConnect";
+import { service } from "utils/apiConnect";
 import authSession from "utils/authSession";
 
 const prefetchHomeData = () => {

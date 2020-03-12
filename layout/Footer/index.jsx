@@ -8,35 +8,7 @@ export default class Footer extends Component {
     return (
       <Fragment>
         <div className="footer" role="main">
-          <div className="container p-0">
-            <ul className="links">
-              <li>
-                <Link href="/about">
-                  <a>About</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms">
-                  <a>Terms</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/privacy-policy">
-                  <a>Privacy policy</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/cookies">
-                  <a>Cookies</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/feedback">
-                  <a>Feedback</a>
-                </Link>
-              </li>
-            </ul>
-
+          <div className="container-fluid">
             <div className="copyright">© 2019 {process.env.domain}</div>
           </div>
         </div>
