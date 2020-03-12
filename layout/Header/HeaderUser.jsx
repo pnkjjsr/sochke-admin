@@ -177,7 +177,7 @@ class HeaderUser extends Component {
                   <Link href="/">
                     <a>{process.env.domain}</a>
                   </Link>
-                  <span>Alpha</span>
+                  <span>Sochke</span>
                 </div>
               </div>
 

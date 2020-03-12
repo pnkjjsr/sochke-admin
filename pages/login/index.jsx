@@ -71,7 +71,7 @@ class Login extends Component {
       password: encodedPassword
     };
     service
-      .post("/login", data)
+      .post("/adminLogin", data)
       .then(res => {
         if (res.data.code == "user/not-register") {
           let obj = {

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import Router from "next/router";
 import { connect } from "react-redux";
 
-import { service } from "apiConnect";
+import { service } from "utils/apiConnect";
 
 class Test extends Component {
   static async getInitialProps({ query }) {

@@ -1,9 +1,10 @@
 runtime: nodejs10 # For Node.js 8, use runtime: nodejs8
+service: admin
 
 instance_class: F1
 
 env_variables:
-  BUCKET_NAME: "sochke-admin"
+  BUCKET_NAME: "sochke"
 
 handlers:
   - url: /static
