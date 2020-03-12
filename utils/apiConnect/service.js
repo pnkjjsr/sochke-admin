@@ -10,6 +10,7 @@ let req = null;
 export default class Service {
   constructor(axiosConfig) {
     this.requestTimeout = process.env.requestTimeout;
+    this.apiPlatform = process.env.apiPlatform;
     this.apiVersion = process.env.apiVersion;
     this.apiProtocol = process.env.apiProtocol;
     this.requestBaseurl = process.env.requestBaseurl;
@@ -46,7 +47,7 @@ export default class Service {
   }
 
   getBaseURL() {
-    const api = `/api/${this.apiVersion}`;
+    const api = `/${this.apiPlatform}/${this.apiVersion}`;
 
     // construct base URL when is on server side
     if (NODE) {

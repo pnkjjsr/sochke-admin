@@ -25,6 +25,7 @@ const nextConfig = {
     govKey: process.env.GOV_KEY,
     apiProtocol: process.env.API_PROTOCOL,
     requestTimeout: process.env.REQUEST_TIMEOUT,
+    apiPlatform: process.env.API_PLATFORM,
     apiVersion: process.env.API_VERSION,
     requestBaseurl: process.env.REQUEST_BASEURL,
     requestBaseurlLocal: process.env.REQUEST_BASEURL_LOCAL
