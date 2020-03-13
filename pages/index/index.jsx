@@ -1,11 +1,7 @@
 import React, { Component, Fragment } from "react";
-import Router from "next/router";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import homeActions from "./action";
 
 import userAuth from "utils/userAuth";
-import authSession from "utils/authSession";
+import { service } from "utils/apiConnect";
 
 import "./style.scss";
 
@@ -13,44 +9,78 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      respondView: 0,
-      profile: "",
-      data: {},
-      polls: []
+      userCount: 0,
+      ministerCount: 0,
+      respondCount: 0,
+      contributionCount: 0
     };
   }
 
-  static getDerivedStateFromProps(props, state) {
-    let data = props.home;
-    let len = data.pms.length;
-
-    if (len) {
-      return {
-        data: data,
-        polls: data.polls,
-        respondView: 1
-      };
-    } else {
-      return null;
-    }
-  }
-
   componentDidMount() {
-    const { homeAction, home } = this.props;
-    const session = new authSession();
-    const profile = session.getProfile();
-    this.setState({
-      profile: profile
-    });
+    service
+      .post("/x-dashboard")
+      .then(res => {
+        let data = res.data;
 
-    homeAction.prefetchHomeData();
+        this.setState({
+          userCount: data.userCount,
+          ministerCount: data.ministerCount,
+          respondCount: data.respondCount,
+          contributionCount: data.contributionCount
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   render() {
+    const {
+      userCount,
+      ministerCount,
+      respondCount,
+      contributionCount
+    } = this.state;
     return (
       <Fragment>
         <div className="home">
-          <div className="container-fluid">Dashboard</div>
+          <div className="container">
+            <div className="row">
+              <div className="col">
+                <div className="card">
+                  <div className="card-body">
+                    <h5 className="card-title">Users Count</h5>
+                    <p className="card-text">{userCount}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="col">
+                <div className="card">
+                  <div className="card-body">
+                    <h5 className="card-title">Ministers Count</h5>
+                    <p className="card-text">{ministerCount}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col">
+                <div className="card">
+                  <div className="card-body">
+                    <h5 className="card-title">Respond Count</h5>
+                    <p className="card-text">{respondCount}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="col">
+                <div className="card">
+                  <div className="card-body">
+                    <h5 className="card-title">Contribution Count</h5>
+                    <p className="card-text">{contributionCount}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <style jsx>{``}</style>
@@ -63,4 +93,4 @@ const mapDispatchToProps = dispatch => ({
   homeAction: bindActionCreators(homeActions, dispatch)
 });
 
-export default connect(state => state, mapDispatchToProps)(userAuth(Home));
+export default userAuth(Home);

@@ -1,9 +1,9 @@
-import { PREFETCH_HOME_DATA, UPDATE_RESPOND } from "./constant";
+import { PREFETCH_DASHBOARD_DATA } from "./constant";
 
 import { service } from "utils/apiConnect";
 import authSession from "utils/authSession";
 
-const prefetchHomeData = () => {
+const prefetchDashboardData = () => {
   const session = new authSession();
   const token = session.getToken();
 
@@ -12,28 +12,20 @@ const prefetchHomeData = () => {
       uid: token
     };
 
-    service
-      .post("/page-home", data)
-      .then(res => {
-        dispatch({
-          type: PREFETCH_HOME_DATA,
-          payload: res.data
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-};
-
-const updateRespond = e => {
-  return {
-    type: UPDATE_RESPOND,
-    payload: e
+    // service
+    //   .post("/page-home", data)
+    //   .then(res => {
+    //     dispatch({
+    //       type: PREFETCH_DASHBOARD_DATA,
+    //       payload: res.data
+    //     });
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
   };
 };
 
 export default {
-  prefetchHomeData,
-  updateRespond
+  prefetchDashboardData
 };

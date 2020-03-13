@@ -1,43 +1,14 @@
-import { PREFETCH_HOME_DATA, UPDATE_RESPOND } from "./constant";
+import { PREFETCH_DASHBOARD_DATA } from "./constant";
 
 const initialState = {
-  responds: [],
-  respondVoted: [],
-  respondPromoted: [],
-  contirubtions: [],
-  contributionCount: 0,
-  councillors: [],
-  mlas: [],
-  mps: [],
-  cms: [],
-  pms: [],
-  polls: [],
-  pollVoted: [],
-  currentCandidates: []
+  data: []
 };
 
 const home = (state = initialState, action) => {
   switch (action.type) {
-    case PREFETCH_HOME_DATA:
+    case PREFETCH_DASHBOARD_DATA:
       return Object.assign({}, state, {
-        responds: action.payload.responds,
-        respondVoted: action.payload.respondVoted,
-        respondPromoted: action.payload.respondPromoted,
-        contributions: action.payload.contributions,
-        contributionCount: action.payload.contributionCount,
-        councillors: action.payload.councillors,
-        mlas: action.payload.mlas,
-        mps: action.payload.mps,
-        cms: action.payload.cms,
-        pms: action.payload.pms,
-        polls: action.payload.polls,
-        pollVoted: action.payload.pollVoted,
-        currentCandidates: action.payload.currentCandidates
-      });
-    case UPDATE_RESPOND:
-      return Object.assign({}, state, {
-        // responds: [...state.responds, action.payload]
-        responds: state.responds.concat(action.payload)
+        data: action.payload.data
       });
     default:
       return state;
