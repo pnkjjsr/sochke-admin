@@ -1,0 +1,59 @@
+/*Global Component*/
+@import "fonts.scss";
+@import "base/_variables";
+@import "base/_mixins";
+@import "base/_breakpoints";
+
+.btn {
+  @extend %btn;
+  font-family: $font-family;
+
+  .icon {
+    margin-left: $gap * 2;
+    margin-top: -3px;
+  }
+
+  &.btn-primary {
+    @extend %btn-primary;
+  }
+
+  &.btn-success {
+    @extend %btn-success;
+  }
+
+  &.btn-outline-primary {
+    @extend %btn-outline-primary;
+  }
+
+  &.btn-link {
+    @extend %btn;
+    color: $color-primary;
+    font-weight: $font-weight;
+  }
+}
+
+.input-group {
+  .form-control {
+    border: 1px solid #808592;
+    // border: 2px solid #d1d6e2;
+    height: 40px;
+  }
+}
+
+.form-control {
+  @extend %form-control;
+  border: 1px solid #a8a5b3;
+}
+
+.disclaimer {
+  color: $color-danger;
+  font-size: rem(13);
+}
+
+a {
+  color: $color-primary;
+
+  &:hover {
+    color: $color-primary;
+  }
+}

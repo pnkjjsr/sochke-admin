@@ -1,0 +1,161 @@
+@import "common/styles/global.scss";
+
+@mixin form {
+  .form {
+    margin-bottom: 10px;
+
+    .header {
+      margin-bottom: 0;
+
+      .heading {
+        margin-bottom: 0;
+        font-size: 30px;
+      }
+
+      .sub {
+        font-size: 14px;
+      }
+    }
+
+    .form-group {
+      min-height: 82px;
+      margin-bottom: 0;
+
+      label {
+        color: $color-gray;
+        font-size: rem(12);
+        font-weight: $font-weight-bold;
+        margin-bottom: 0;
+
+        span {
+          color: $color-gray;
+          font-weight: $font-weight-light;
+        }
+      }
+
+      .form-control {
+        height: 40px;
+        font-size: rem(13);
+
+        &.text-area {
+          height: 65px;
+        }
+      }
+
+      .form-text {
+        margin-top: 0;
+        font-size: 12px;
+      }
+
+      &.error {
+        .form-control {
+          border-color: red;
+        }
+
+        .form-text {
+          color: red;
+        }
+      }
+    }
+
+    .form-note {
+      color: rgb(128, 128, 128);
+      font-size: 11px;
+    }
+
+    .form-action {
+      .btn {
+        width: 100%;
+        text-shadow: 1.4px 1.4px 0 rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+
+  .form-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    font-size: rem(12);
+    text-align: center;
+
+    .btn {
+      padding: 0 5px;
+      font-weight: $font-weight-bold;
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    .form {
+      padding: 15px 30px 30px;
+      margin-bottom: 10px;
+      @include border-radius(3px);
+      border: solid 1px rgba(141, 164, 176, 0.18);
+      background-color: rgb(255, 255, 255);
+      box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
+
+      .header {
+        margin-bottom: 10px;
+
+        .heading {
+          padding: 0;
+          margin: 0;
+          margin-bottom: 0;
+          font-size: 30px;
+          font-weight: 400;
+        }
+
+        .sub {
+          font-size: 16px;
+          font-weight: 400;
+        }
+      }
+
+      .form-control {
+        &.last {
+          height: 80px;
+        }
+
+        &.error {
+          .MuiInputBase-root {
+            border-color: #ff6c6c;
+          }
+
+          .MuiFormHelperText-root {
+            color: #ff6c6c;
+          }
+        }
+      }
+
+      .note {
+        margin-bottom: 20px;
+        color: rgb(128, 128, 128);
+        font-size: 12px;
+        line-height: 1.5;
+        letter-spacing: -0.12px;
+        text-align: left;
+      }
+
+      .action {
+        text-align: center;
+      }
+    }
+
+    .link {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.25;
+      letter-spacing: -0.16px;
+      text-align: center;
+
+      a {
+        color: $color-link;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,58 @@
+@import "common/styles/global";
+
+nav.user {
+  ul {
+    padding: 0;
+    margin: 0;
+
+    li {
+      list-style-type: none;
+
+      a {
+        display: block;
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+        color: $color-primary;
+        font-size: 13px;
+        text-align: left;
+        text-decoration: none;
+        text-shadow: none;
+      }
+
+      &.user-details {
+        padding: 20px 0 0;
+        text-align: center;
+
+        figure {
+          display: flex;
+          justify-content: center;
+          width: 100px;
+          height: 100px;
+          margin: auto;
+          border: 1px solid $border-color;
+          @include border-radius(100%);
+          overflow: hidden;
+
+          i {
+            color: $color-lighter;
+            font-size: rem(98);
+          }
+
+          img {
+            height: 100%;
+          }
+        }
+
+        .title {
+          a {
+            font-size: rem(14);
+            text-align: center;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+    }
+  }
+}

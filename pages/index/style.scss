@@ -1,0 +1,39 @@
+@import "common/styles/global.scss";
+
+.home {
+  margin-top: 10px;
+
+  .panel {
+    margin-bottom: 10px;
+    padding: 10px 10px 15px;
+    border: 1px solid $border-color;
+    @include border-radius($border-radius-min);
+    background-color: $bg-panel;
+
+    .title {
+      margin-bottom: 10px;
+      font-size: rem(16);
+      font-weight: $font-weight-bold;
+    }
+
+    &.contribute {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      border: 0 none;
+      @include box-shadow;
+
+      span {
+        font-size: rem(14);
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .home {
+    margin-top: 25px;
+  }
+}
