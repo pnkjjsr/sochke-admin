@@ -1,6 +1,12 @@
 import React, { Component, Fragment } from "react";
+
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import actionNotifications from "components/Notification/actions";
+
 import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
 import { service } from "utils/apiConnect";
+import authSession from "utils/authSession";
 
 import UploadFile from "components/UploadFile";
 
@@ -8,7 +14,7 @@ import PageHeader from "components/Layout/PageHeader";
 
 import "./style.scss";
 
-export default class ContributeAdd extends Component {
+class ContributeAdd extends Component {
   constructor(props) {
     super(props);
 
@@ -27,20 +33,33 @@ export default class ContributeAdd extends Component {
   };
 
   handleSubmit = e => {
-    const { title, desc, imgUrl } = this.state;
     e.preventDefault();
+    const { title, desc, imgUrl } = this.state;
+
+    const session = new authSession();
+    let profile = session.getProfile();
 
     let data = {
       createdAt: new Date().toISOString(),
+      uid: profile.id,
       title: title,
       desc: desc,
-      imgUrl: imgUrl
+      imgUrl: imgUrl,
+      displayName: profile.displayName
     };
 
     service
       .post("/x-contributionPublic-add", data)
       .then(res => {
         console.log(res);
+        this.setState({
+          createdAt: "",
+          uid: "",
+          title: "",
+          desc: "",
+          imgUrl: "",
+          displayName: ""
+        });
       })
       .catch(err => {
         console.log(err);
@@ -114,3 +133,9 @@ export default class ContributeAdd extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  actionNotification: bindActionCreators(actionNotifications, dispatch)
+});
+
+export default connect(state => state, mapDispatchToProps)(ContributeAdd);
