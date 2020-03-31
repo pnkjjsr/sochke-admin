@@ -56,6 +56,12 @@ export default class Storage {
           .child(`${path}/${uid}/${dateParse}.jpg`)
           .put(file, metadata);
         break;
+      case "images/contributionPublic":
+        // Upload file and metadata to the object 'path send via PROPS parameter'
+        var uploadTask = storageRef
+          .child(`${path}/${uid}/${dateParse}.jpg`)
+          .put(file, metadata);
+        break;
       default:
         console.log("Error: path not match with any path");
     }

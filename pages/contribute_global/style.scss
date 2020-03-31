@@ -1,0 +1,16 @@
+@import "common/styles/global.scss";
+
+.contribute_global {
+  &__form {
+    .upload-file {
+      position: relative;
+
+      > input[type="file"] {
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+      }
+    }
+  }
+}
