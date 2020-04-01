@@ -1,13 +1,59 @@
 import React, { Component, Fragment } from "react";
 import userAuth from "utils/userAuth";
+import Link from "next/link";
 import Router from "next/router";
 import { Table } from "reactstrap";
 
+import { service } from "utils/apiConnect";
+import authSession from "utils/authSession";
 import PageHeader from "components/Layout/PageHeader";
 
 class ContributeGlobal extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: []
+    };
+  }
+
+  componentDidMount() {
+    service
+      .get("/x-contributePublic")
+      .then(res => {
+        this.setState({
+          data: res.data
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   handleAdd = () => {
     Router.push("/contribute_global/add");
+  };
+
+  renderRow = () => {
+    const { data } = this.state;
+    return data.map((row, key) => {
+      return (
+        <tr key={row.id}>
+          <th scope="row">{key}</th>
+          <td>
+            <Link href={`/contribute_global/edit?id=${row.id}`}>
+              <a>{row.id}</a>
+            </Link>
+          </td>
+          <td>{row.title}</td>
+          <td>{row.status == true ? "Active" : "Disable"}</td>
+          <td>{row.displayName}</td>
+          <td>
+            <a href="">Delete</a>
+          </td>
+        </tr>
+      );
+    });
   };
 
   render() {
@@ -31,21 +77,14 @@ class ContributeGlobal extends Component {
                 <thead>
                   <tr>
                     <th>#</th>
+                    <th>id</th>
                     <th>Title</th>
+                    <th>Status</th>
                     <th>Posted By</th>
                     <th>Action</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Contribute 1</td>
-                    <td>Pankaj Jasoria</td>
-                    <td>
-                      <a href="">Edit</a> <a href="">Delete</a>
-                    </td>
-                  </tr>
-                </tbody>
+                <tbody>{this.renderRow()}</tbody>
               </Table>
             </div>
           </div>
