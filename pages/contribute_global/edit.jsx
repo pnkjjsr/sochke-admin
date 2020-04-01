@@ -24,7 +24,7 @@ class ContributeAdd extends Component {
       description: "",
       imgUrl: "",
       status: true,
-      displayName: "",
+      true: "",
       votePassCount: 0,
       voteAgreeCount: 0,
       voteDisagreeCount: 0,
@@ -45,7 +45,7 @@ class ContributeAdd extends Component {
           description: res.data.description,
           imgUrl: res.data.imgUrl,
           status: res.data.status,
-          displayName: res.data.displayName,
+          postedBy: res.data.postedBy,
           votePassCount: res.data.votePassCount,
           voteAgreeCount: res.data.voteAgreeCount,
           voteDisagreeCount: res.data.voteDisagreeCount,
@@ -66,32 +66,26 @@ class ContributeAdd extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { title, desc, imgUrl } = this.state;
+    const { id, title, description, imgUrl, status } = this.state;
 
     const session = new authSession();
     let profile = session.getProfile();
 
     let data = {
-      createdAt: new Date().toISOString(),
-      uid: profile.id,
+      updatedAt: new Date().toISOString(),
+      id: id,
       title: title,
-      desc: desc,
+      description: description,
       imgUrl: imgUrl,
-      displayName: profile.displayName
+      uid: profile.id,
+      status: status,
+      updatedBy: profile.displayName
     };
 
     service
-      .post("/x-contributionPublic-add", data)
+      .post("/x-contributionPublic-update", data)
       .then(res => {
         console.log(res);
-        this.setState({
-          createdAt: "",
-          uid: "",
-          title: "",
-          desc: "",
-          imgUrl: "",
-          displayName: ""
-        });
       })
       .catch(err => {
         console.log(err);
@@ -105,9 +99,8 @@ class ContributeAdd extends Component {
   };
 
   render() {
-    console.log(this.state);
-
     const mainClass = "contribute_global";
+    const { title, description, imgUrl, status, postedBy } = this.state;
 
     return (
       <Fragment>
@@ -115,6 +108,11 @@ class ContributeAdd extends Component {
           <PageHeader title="Edit Global Contribute" />
 
           <div className="row">
+            <div className="col-12 col-md-6 float-right">
+              <figure className="photo">
+                <img src={imgUrl} alt="Contribution Public Image" />
+              </figure>
+            </div>
             <div className="col-12 col-md-6">
               <Form
                 className={`${mainClass}__form`}
@@ -124,9 +122,10 @@ class ContributeAdd extends Component {
                   <Label for="exampleEmail">Title</Label>
                   <Input
                     type="text"
-                    name="title"
                     placeholder="Max 70 char."
                     maxLength="70"
+                    value={title}
+                    name="title"
                     onChange={this.handleChange}
                   />
                 </FormGroup>
@@ -135,9 +134,10 @@ class ContributeAdd extends Component {
                   <Label for="exampleEmail">Description</Label>
                   <Input
                     type="textarea"
-                    name="desc"
                     placeholder="Max 200 char."
                     maxLength="200"
+                    value={description}
+                    name="description"
                     onChange={this.handleChange}
                   />
                 </FormGroup>
@@ -152,6 +152,25 @@ class ContributeAdd extends Component {
                   >
                     Click here to upload contribution image
                   </UploadFile>
+                </FormGroup>
+
+                <FormGroup>
+                  <Label for="exampleEmail">Status</Label>
+                  <Input
+                    type="select"
+                    name="status"
+                    value={status}
+                    onChange={this.handleChange}
+                  >
+                    <option value={true}>Active</option>
+                    <option value={false}>Disable</option>
+                  </Input>
+                </FormGroup>
+
+                <FormGroup>
+                  <Label for="exampleEmail">Posted By</Label>
+                  <br />
+                  <b>{postedBy}</b>
                 </FormGroup>
 
                 <Button color="primary" type="submit">

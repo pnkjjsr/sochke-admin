@@ -3,6 +3,7 @@ import userAuth from "utils/userAuth";
 import Link from "next/link";
 import Router from "next/router";
 import { Table } from "reactstrap";
+import Moment from "utils/moment";
 
 import { service } from "utils/apiConnect";
 import authSession from "utils/authSession";
@@ -36,7 +37,10 @@ class ContributeGlobal extends Component {
 
   renderRow = () => {
     const { data } = this.state;
+    const moment = new Moment();
+
     return data.map((row, key) => {
+      const createdAt = moment.format(row.createdAt);
       return (
         <tr key={row.id}>
           <th scope="row">{key}</th>
@@ -46,11 +50,9 @@ class ContributeGlobal extends Component {
             </Link>
           </td>
           <td>{row.title}</td>
+          <td>{createdAt}</td>
           <td>{row.status == true ? "Active" : "Disable"}</td>
-          <td>{row.displayName}</td>
-          <td>
-            <a href="">Delete</a>
-          </td>
+          <td>{row.postedBy}</td>
         </tr>
       );
     });
@@ -79,9 +81,9 @@ class ContributeGlobal extends Component {
                     <th>#</th>
                     <th>id</th>
                     <th>Title</th>
+                    <th>CreatedAt</th>
                     <th>Status</th>
                     <th>Posted By</th>
-                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>{this.renderRow()}</tbody>
