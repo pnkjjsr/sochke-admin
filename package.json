@@ -7,8 +7,8 @@
     "next": "next",
     "next-start": "next start",
     "build": "yarn clean && next build",
-    "dev": "NODE_ENV=development node server.js",
-    "prod": "NODE_ENV=production node server.js",
+    "dev": "NODE_ENV=development && node server.js",
+    "prod": "NODE_ENV=production && node server.js",
     "deploy": "gcloud app deploy",
     "export": "npm run build && next export",
     "clean": "rimraf .next"

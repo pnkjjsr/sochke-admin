@@ -1,8 +1,6 @@
 import React, { Component, Fragment } from "react";
 
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import accountActions from "pages/account/actions";
 
 import Storage from "utils/firestoreStorage";
 import ImageModifier from "utils/imageModifier";
@@ -53,8 +51,5 @@ class UploadFile extends Component {
     );
   }
 }
-const mapDispatchToProps = dispatch => ({
-  accountAction: bindActionCreators(accountActions, dispatch)
-});
 
-export default connect(state => state, mapDispatchToProps)(UploadFile);
+export default connect(state => state)(UploadFile);

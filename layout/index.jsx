@@ -8,6 +8,8 @@ import authSession from "utils/authSession";
 
 import Head from "./head";
 import Header from "./Header";
+import Nav from "./Nav";
+
 import GlobalNotification from "./GlobalNotification";
 import Footer from "./Footer";
 
@@ -63,6 +65,7 @@ class Layout extends Component {
       <Fragment>
         <Head pageTitle={this.props.pageTitle} />
         <Header />
+        {loggedIn ? <Nav /> : ""}
 
         <div onClick={this.handleGlobalSearch}>
           <div className="main">{this.props.children}</div>

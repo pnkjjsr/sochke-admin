@@ -73,6 +73,9 @@ class Login extends Component {
     service
       .post("/x-login", data)
       .then(res => {
+        const auth = new authentication();
+        let uData = res.data;
+
         if (res.data.code == "user/not-register") {
           let obj = {
             message: res.data.message,
@@ -96,10 +99,18 @@ class Login extends Component {
           return actionNotification.showNotification(obj);
         }
 
-        session.setProfile(res.data);
-        user.authenticate(res.data);
-        session.setToken(res.data.id);
-        Router.push("/");
+        auth
+          .signInWithEmail(email, password)
+          .then(res => {
+            console.log(res);
+            session.setProfile(uData);
+            user.authenticate(uData);
+            session.setToken(uData.id);
+            Router.push("/");
+          })
+          .catch(err => {
+            console.log(err);
+          });
       })
       .catch(error => {
         let obj = {

@@ -25,6 +25,9 @@ export default class ImageModifier {
             case "images/contributions":
               if (img.height > 800) height = 800;
               break;
+            case "images/contributionPublic":
+              if (img.height > 800) height = 800;
+              break;
             default:
               console.log("Error: path not match with any path");
           }
